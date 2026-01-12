@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Stars | donat.cool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-star"></i>
+                <h1>Art Stars</h1>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeBtn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Главный экран -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Покупай звезды, TON и Premium</h2>
+                <p class="subtitle">Быстро • Надёжно • Выгодно</p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <span>Доставка до 15 минут</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-percent"></i>
+                        <span>Самый низкий курс</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Проверенный продавец</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Выбор товара -->
+        <section class="products">
+            <h3 class="section-title">Что покупаем?</h3>
+            <div class="product-grid">
+                <div class="product-card star-card active" onclick="selectProduct('stars')">
+                    <div class="product-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>Звёзды</h4>
+                    <p>100 – 25.000 шт</p>
+                    <div class="price">1.45₽ / шт</div>
+                </div>
+
+                <div class="product-card premium-card" onclick="selectProduct('premium')">
+                    <div class="product-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h4>Premium</h4>
+                    <p>3, 6, 12 месяцев</p>
+                    <div class="price">от 15 USDT</div>
+                </div>
+
+                <div class="product-card ton-card" onclick="selectProduct('ton')">
+                    <div class="product-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h4>TON</h4>
+                    <p>2 – 165 TON</p>
+                    <div class="price">149₽ / TON</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Калькулятор -->
+        <section class="calculator">
+            <h3 class="section-title">Калькулятор</h3>
+            
+            <!-- Выбор премиума -->
+            <div class="premium-selector" id="premiumSelector" style="display: none;">
+                <div class="premium-option active" onclick="selectPremium(3)">
+                    <div class="premium-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h5>3 месяца</h5>
+                    <div class="premium-price">15 USDT</div>
+                </div>
+                <div class="premium-option" onclick="selectPremium(6)">
+                    <div class="premium-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h5>6 месяцев</h5>
+                    <div class="premium-price">19 USDT</div>
+                </div>
+                <div class="premium-option" onclick="selectPremium(12)">
+                    <div class="premium-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h5>12 месяцев</h5>
+                    <div class="premium-price">28 USDT</div>
+                </div>
+            </div>
+
+            <!-- Ввод количества -->
+            <div class="input-group">
+                <label for="quantity" id="quantityLabel">Количество звёзд:</label>
+                <div class="input-with-slider">
+                    <input type="number" id="quantity" min="100" max="25000" value="1000">
+                    <div class="slider-container">
+                        <input type="range" id="quantitySlider" min="100" max="25000" value="1000" step="100">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Итог -->
+            <div class="result">
+                <div class="result-item">
+                    <span>Сумма:</span>
+                    <span id="totalAmount">1 450 ₽</span>
+                </div>
+                <div class="result-item">
+                    <span>Курс:</span>
+                    <span id="rateText">1.45₽ / шт</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ввод username -->
+        <section class="username-input">
+            <h3 class="section-title">Куда отправлять?</h3>
+            <div class="input-group">
+                <label for="username"><i class="fas fa-user"></i> Ваш username в Telegram:</label>
+                <input type="text" id="username" placeholder="username (без @)">
+                <p class="input-hint">Без @, только имя пользователя</p>
+            </div>
+        </section>
+
+        <!-- Выбор оплаты -->
+        <section class="payment-section">
+            <h3 class="section-title">Способ оплаты</h3>
+            <div class="payment-methods">
+                <div class="payment-method active" onclick="selectPayment('crypto_bot')">
+                    <div class="payment-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <h5>Crypto Bot</h5>
+                    <p>Оплата через Telegram</p>
+                </div>
+                <div class="payment-method" onclick="selectPayment('bep20')">
+                    <div class="payment-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h5>BEP20</h5>
+                    <p>Кошелёк в сети BSC</p>
+                </div>
+            </div>
+
+            <!-- Платежные данные -->
+            <div class="payment-details">
+                <div class="payment-info" id="cryptoBotInfo">
+                    <h5><i class="fab fa-telegram"></i> Crypto Bot</h5>
+                    <p>Нажмите на кнопку для перехода к оплате</p>
+                    <button class="pay-btn" onclick="openCryptoBot()">
+                        <i class="fab fa-telegram"></i> Перейти к оплате
+                    </button>
+                </div>
+
+                <div class="payment-info" id="bep20Info" style="display: none;">
+                    <h5><i class="fas fa-wallet"></i> BEP20 Кошелёк</h5>
+                    <div class="wallet-address">
+                        <code>0x798236f6980A595FE823b595d71816Dc713fAFdE</code>
+                        <button class="copy-btn" onclick="copyWallet()">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <p class="warning">Отправляйте только USDT (BEP20)!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Загрузка скрина -->
+        <section class="screenshot-section">
+            <h3 class="section-title">Скриншот оплаты</h3>
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Нажмите для загрузки скриншота оплаты</p>
+                <input type="file" id="screenshotInput" accept="image/*">
+            </div>
+            <div class="preview-container" id="previewContainer" style="display: none;">
+                <img id="imagePreview" src="" alt="Preview">
+                <button class="remove-btn" onclick="removeImage()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Кнопка отправки -->
+        <section class="submit-section">
+            <button class="submit-btn" onclick="submitOrder()" id="submitBtn">
+                <i class="fas fa-paper-plane"></i> Отправить заказ
+            </button>
+            <p class="submit-hint">После отправки жди подтверждения в этом чате</p>
+        </section>
+
+        <!-- Инструкция -->
+        <section class="instructions">
+            <h3 class="section-title">Как оплатить?</h3>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>Выберите способ оплаты</h5>
+                        <p>Crypto Bot или BEP20 кошелёк</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>Оплатите товар</h5>
+                        <p>Следуйте инструкциям платежной системы</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>Загрузите скриншот</h5>
+                        <p>Скриншот подтверждения оплаты</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>Ожидайте!</h5>
+                        <p>Доставка в течение 15 минут</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Поддержка -->
+        <footer class="footer">
+            <div class="support">
+                <h5>По всем вопросам:</h5>
+                <a href="https://t.me/N3_ART" class="support-link" target="_blank">
+                    <i class="fab fa-telegram"></i> @N3_ART
+                </a>
+                <p class="copyright">© 2024 Art Stars</p>
+            </div>
+            <div class="creator">
+                <p>Создатель: <span>@N3_ART</span></p>
+                <a href="https://t.me/+1Aak2IHRK45jN2Uy" class="channel-link" target="_blank">
+                    Канал создателя →
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно успеха -->
+    <div class="modal" id="successModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Заказ отправлен!</h3>
+            <p>Мы получили ваш заказ. Ожидайте доставки в течение 15 минут.</p>
+            <p class="modal-info">Ты получишь уведомление в этом чате</p>
+            <button class="modal-btn" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- Script для отправки заказов -->
+    <script src="order_sender.js"></script>
+</body>
+                  </html>
